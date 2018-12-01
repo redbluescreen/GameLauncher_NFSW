@@ -1599,10 +1599,8 @@ namespace GameLauncher {
                     WebClientWithTimeout breachCheck = new WebClientWithTimeout();
                     String checkPassword = SHA.HashPassword(registerPassword.Text.ToString()).ToUpper();
 
-                    var regex = new Regex(@"([0-9A-Z]{5})([0-9A-Z]{35})").Split(checkPassword);
-
-                    String range = regex[1];
-                    String verify = regex[2];
+                    String range = checkPassword.Substring(0, 5);
+                    String verify = checkPassword.Substring(5);
                     String serverReply = breachCheck.DownloadString("https://api.pwnedpasswords.com/range/"+range);
 
                     string[] hashes = serverReply.Split('\n');
