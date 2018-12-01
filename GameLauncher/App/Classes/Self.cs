@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using GameLauncher.App.Classes.Logger;
 
 namespace GameLauncherReborn {
     class Self {
@@ -109,7 +110,8 @@ namespace GameLauncherReborn {
                         return true;
                     }
                 }
-            } catch {
+            } catch (Exception e) {
+                Log.Exception(e);
                 return false;
             }
         }

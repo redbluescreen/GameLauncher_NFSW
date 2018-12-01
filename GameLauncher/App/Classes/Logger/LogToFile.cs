@@ -14,7 +14,7 @@ namespace GameLauncher.App.Classes.Logger
 
             try { 
                 using (StreamWriter stream = new StreamWriter("log.txt", true)) {
-                    stream.WriteLine(DateTime.Now.ToString("o"), "[" + errorname + "] " + text);
+                    stream.WriteLine("{0} [{1}] {2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), errorname, text);
                     Console.WriteLine("[" + errorname + "] " + text);
                 }
             } catch {
@@ -40,6 +40,10 @@ namespace GameLauncher.App.Classes.Logger
         public static void Error(string text)
         {
             _toFile(text, "ERROR");
+        }
+        
+        public static void Exception(Exception ex) {
+            Error(ex.Message + Environment.NewLine + ex.StackTrace);
         }
     }
 }

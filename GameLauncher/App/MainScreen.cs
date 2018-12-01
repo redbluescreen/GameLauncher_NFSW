@@ -496,10 +496,11 @@ namespace GameLauncher {
                     streamWriter.Write(_slresponse);
                     streamWriter.Close();
                 } catch(Exception ex) {
-                    Log.Error(ex.Message);
+                    Log.Exception(ex);
                 }
             } catch (Exception error) {
-                Log.Error(error.Message + ". Restoring from ServerCache");
+                Log.Exception(error);
+                Log.Error("Restoring from ServerCache");
 
                 if (File.Exists("ServerCache.json")) {
                     var fileStream = new FileStream("ServerCache.json", FileMode.Open);
