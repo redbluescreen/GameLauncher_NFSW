@@ -14,7 +14,7 @@ namespace GameLauncher.App.Classes.Logger
 
             try { 
                 using (StreamWriter stream = new StreamWriter("log.txt", true)) {
-                    stream.WriteLine("[" + errorname + "] " + text);
+                    stream.WriteLine(DateTime.Now.ToString("o"), "[" + errorname + "] " + text);
                     Console.WriteLine("[" + errorname + "] " + text);
                 }
             } catch {
