@@ -122,9 +122,6 @@ namespace GameLauncher {
                         } else {
                             Log.Debug("Checking Proxy");
                             ServerProxy.Instance.Start();
-
-                            Application.ThreadException += new ThreadExceptionEventHandler(ThreadExceptionEventHandler);
-                            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledExceptionEventHandler);
                             
                             Log.Debug("Starting MainScreen");
                             Application.Run(new MainScreen(SplashScreen2));
@@ -149,32 +146,5 @@ namespace GameLauncher {
 
             CurrentUser = pUser;
         }*/
-
-        static void UnhandledExceptionEventHandler(object sender, UnhandledExceptionEventArgs e) {
-            Bugsnag.Client bugsnag = new Bugsnag.Client(new Configuration("ba9a1f366203b461b2f031a12b9a0e41"));
-            bugsnag.Notify((Exception)e.ExceptionObject);
-
-            Log.Error(((Exception)e.ExceptionObject).Message);
-            using (ThreadExceptionDialog dialog = new ThreadExceptionDialog((Exception)e.ExceptionObject)) {
-                dialog.ShowDialog();
-            }
-
-            Application.Exit();
-            Environment.Exit(0);
-        }
-
-        static void ThreadExceptionEventHandler(object sender, ThreadExceptionEventArgs e) {
-            Bugsnag.Client bugsnag = new Bugsnag.Client(new Configuration("ba9a1f366203b461b2f031a12b9a0e41"));
-            bugsnag.Notify(e.Exception);
-
-            Log.Error(e.Exception.Message);
-
-            using (ThreadExceptionDialog dialog = new ThreadExceptionDialog(e.Exception)) {
-                dialog.ShowDialog();
-            }
-
-            Application.Exit();
-            Environment.Exit(0);
-        }
     }
 }
